@@ -124,6 +124,7 @@ header ul li a.active{
 
 .content h2 {
   font-size: 3em;
+
 }
 
 .content p {
@@ -179,8 +180,8 @@ header ul li a.active{
 }
 
 .imgG img {
-
-  margin-left: -550px;
+  transform: translateZ(100px);
+  margin-left: -280px;
   margin-right: -60px;
   max-width: 600px;
   border-radius: 100px;
