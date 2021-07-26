@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <meta name="theme-color" content="#000000" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<section>
+  <div class="container">
+    <header>
+      <a href="#" class="logo">Portfolio.</a>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#galaxy">Projects</a></li>
+        <li><a href="#">About me</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </header>
+    <div class="content">
+      <h2>Noé Vernier</h2>
+      <p>J’ai 19 ans et je suis étudiant en deuxième année de classe préparatoire à Blaise Pascal.
+      </p>
+      <a href="https://github.com/noevernier" class="fa fa-github"> GitHub</a>
+    </div>
+    <div class="imgBx">
+      <img src="images/me.png">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container galaxy" >
+
+    <div class="content">
+      <h2>Galaxy Simulation</h2>
+      <p>This is a n-body simulation code in C++ and using the Barnes-Hut Algorithm.
+      </p>
+      <a id="galaxy" href="https://github.com/noevernier/galaxy-simulation" class="fa fa-github"> Souce Code</a>
+    </div>
+    <div class="imgG">
+      <img src="images/gal.png">
+    </div>
+  </div>
+</section>
+
+
+
+<script type="text/javascript" src="vanilla-tilt.js"></script>
+
+<script type="text/javascript">
+
+  VanillaTilt.init(document.querySelector(".container"), {
+		max: 2,
+		speed: 1,
+	});
+  VanillaTilt.init(document.querySelector(".galaxy"), {
+		max: 2,
+		speed: 1,
+	});
+
+</script>
+
+</body>
+</html>
