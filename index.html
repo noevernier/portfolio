@@ -56,14 +56,19 @@
 
 <script type="text/javascript">
 
-  VanillaTilt.init(document.querySelector(".container"), {
+
+  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+   
+  }else{
+    VanillaTilt.init(document.querySelector(".container"), {
 		max: 2,
 		speed: 1,
-	});
-  VanillaTilt.init(document.querySelector(".galaxy"), {
-		max: 2,
-		speed: 1,
-	});
+    });
+    VanillaTilt.init(document.querySelector(".galaxy"), {
+      max: 2,
+      speed: 1,
+    });
+  }
 
 </script>
 
