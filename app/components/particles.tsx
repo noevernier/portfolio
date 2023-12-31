@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { useMousePosition } from "@/util/mouse";
+import { F } from "@upstash/redis/zmscore-fa7fc9c8";
 
 interface ParticlesProps {
 	className?: string;
@@ -121,6 +122,8 @@ export default function Particles({
 	const drawCircle = (circle: Circle, update = false) => {
 		if (context.current) {
 			const { x, y, translateX, translateY, size, alpha } = circle;
+
+
 			context.current.translate(translateX, translateY);
 			context.current.beginPath();
 			context.current.arc(x, y, size, 0, 2 * Math.PI);
@@ -129,6 +132,7 @@ export default function Particles({
 			context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 			if (!update) {
+
 				circles.current.push(circle);
 			}
 		}
@@ -215,6 +219,7 @@ export default function Particles({
 						...circle,
 						x: circle.x,
 						y: circle.y,
+                        size: circle.size,
 						translateX: circle.translateX,
 						translateY: circle.translateY,
 						alpha: circle.alpha,
