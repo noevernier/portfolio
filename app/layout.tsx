@@ -14,11 +14,11 @@ export const metadata: Metadata = {
     title: "noevernier.com",
     description:
       "Student at Télécom Paris",
-    url: "https://noevernier.com",
+    url: "https://noevernier.vercel.app",
     siteName: "noevernier.com",
     images: [
       {
-        url: "https://noevernier.com/og.png",
+        url: "https://noevernier.vercel.app/og.png",
         width: 1920,
         height: 1080,
       },
