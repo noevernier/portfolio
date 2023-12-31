@@ -2,7 +2,6 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { useMousePosition } from "@/util/mouse";
-import { F } from "@upstash/redis/zmscore-fa7fc9c8";
 
 interface ParticlesProps {
 	className?: string;
