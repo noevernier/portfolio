@@ -1,0 +1,137 @@
+---
+title: LPCVC 2023
+description: A solution for the LPCV CHALLENGE 2023 focusing on efficient semantic segmentation for disaster scenes using low-power edge devices.
+date: "2024-07-18"
+url: https://noevernier.github.io/lpcvc-2023-solution
+published: true
+repository: SunJacques/LPCVC-2023
+technologies: Python, PyTorch, NVIDIA Jetson Nano, TensorRT
+---
+
+# Solution for LPCVC 2023 - Project Article
+
+## Introduction
+
+This article documents the solution developed for the LOW-POWER COMPUTER VISION CHALLENGE 2023 (LPCVC 2023), a competition aimed at achieving efficient and accurate understanding of disaster scenes using low-power edge devices for computer vision. The project focuses on semantic segmentation of disaster areas captured by unmanned aerial vehicles (UAVs), utilizing the NVIDIA Jetson Nano 2GB Developer Kit and PyTorch models.
+
+## Team Members
+
+- [Fan Hong](github_profile_link)
+- [Noé Vernier](github_profile_link)
+- [Ulysse Ristorcelli](github_profile_link)
+- [Jacques Sun](github_profile_link)
+
+## Project Description
+
+The LPCVC 2023 competition required participants to develop models capable of automatically analyzing images captured by UAVs in disaster-stricken areas. With limited processing capabilities and energy constraints of edge devices, such as the NVIDIA Jetson Nano 2GB Developer Kit, the challenge focused on improving semantic segmentation for efficient on-device computer vision on UAVs.
+
+## Objective
+
+Our objective was to create efficient semantic segmentation models that could analyze disaster scenes from UAV-captured images using the NVIDIA Jetson Nano 2GB Developer Kit.
+
+## Technologies Used
+
+- Python 3.6
+- PyTorch 1.11.1
+- NVIDIA Jetson Nano 2GB Developer Kit
+- JetPack SDK 4.6.3
+- TensorRT
+
+## Implementation
+
+### Repository Structure
+
+```bash
+├── dataset
+│   ├── train
+│   │    ├── IMG
+│   │    │   ├── train_0000.png
+│   │    │   ├── train_0001.png
+│   │    │   └── ...
+│   │    └── GT
+│   │        ├── train_0000.png
+│   │        ├── train_0001.png
+│   │        └── ...
+│   │   
+│   └── val
+│       ├── IMG
+│       │   ├── val_0000.png
+│       │   ├── val_0001.png
+│       │   └── ...
+│       └── GT
+│           ├── val_0000.png
+│           ├── val_0001.png
+│           └── ...
+├── README.md
+├── train.py
+└── ...
+```
+
+
+### Model Training and Evaluation
+
+We trained and evaluated various models on the provided dataset...
+
+
+### Daily Progress Report
+
+<details>
+  <summary>Daily Report</summary>
+  
+### Tuesday: 
+We researched existing architectures and decided to start with the UNet architecture. We also began familiarizing ourselves with PyTorch.
+___
+### Wednesday: 
+We coded UNet architecture from scratch and trained the model for the first time. We then enhanced the model performance by resizing the dataset in 128x128 with less layer (4) for Unet. We tested the model with another optimizer, SGD with a different learning rate but the results are not optimistic. 
+We also researched existing backbones to improve the performance of the model.
+___
+### Thursday: 
+We implemented the following backbones: ResNet, EfficientNet, MobileNet, and ImageNet. We also tried to code an AutoEncoder to improve our current model. Then, we tested a new architecture (FPN) with different learning rates for the FPN. We also added a One Cycle scheduler and augmented the images in the dataset. We achieved a satisfactory dice score with FPN, but the FastCNN architecture allows lower inference time and utilizes less memory (700Mo). Unfortunately, the obtained dice score is not satisfactory (0.38). The new objective is, therefore, to start from the FastCNN model and attempt to improve its dice score.
+___
+### Friday: 
+We enhanced the inference time by implementing quantisation and dice for FastCNN, and retrained the model with a dataset of data size 256x256 but the results are not satisfying. We then turned to another promising model: PSPNet. We started using Jetson Nano and tried to load our model on the card, but encountered numerous errors.
+___
+### Saturday: 
+We optimized the PSPNet by testing different backbones(MobileNet, ResNet).
+___
+### Monday: 
+We tried to solve the problem with Jetson Nano in our code, and loaded the models we trained. We obtained an inference time of 50ms with PSPNet. We also encountered the problem that the first inference time was too long, however, it was enhanced in the process of inferences.
+___
+### Tuesday: 
+We searched for ways to optimize our model on the Jetson Nano device. Consequently, we utilized TensorRT to enhance the inference time. As a result, the PSPNet model achieved an inference time of 16ms.  
+To further improve this inference time, we decided to use quantization and we thus achieved an inference time of 14ms.
+___
+### Wednesday: 
+We looked for new models, read corresponding papers and focused on a paper published last May on a new architecture JetSeg, and adapted the code to our study case. We did the same for ESPNet architecture.
+
+</details>
+
+## Results and Achievements
+
+|         Architecure         |    Backbone    | Dice | Inference time on A100 (ms) | Inference time on Jetson Nano (ms) | Score |
+|:---------------------------:|:--------------:|:----:|:---------------------------:|:----------------------------------:|:-----:|
+| UNet (128, no augmentation) | /              | 0.43 | 0.87                        | /                                  | /     |
+| UNet (128)                  | /              | 0.52 | 0.85                        | /                                  | /     |
+| UNet (128)                  | ImageNet       | 0.55 | 0.55                        | /                                  | /     |
+| UNet (256)                  | ImageNet       | 0.6  | 0.65                        | /                                  | /     |
+| UNet (256)                  | MobileNetV2    | 0.65 | 0.94                        | /                                  | /     |
+| UNet (128)                  | EfficientNetB4 | 0.6  | 1.4                         | /                                  | /     |
+| FPN (128)                   | EfficientNetB3 | 0.63 | 0.8                         | 36                                 | 18    |
+| FPN (256)                   | EfficientNetB3 | 0.65 | 1.7                         | /                                  | /     |
+| FPN (256)                   | EfficientNetB0 | 0.63 | 1.1                         | /                                  | /     |
+| FPN (256)                   | MobileNetV2    | 0.65 | 0.8                         | 50                                 | 13    |
+| FastCNN (256)               | /              | 0.4  | 0.37                        | /                                  | /     |
+| PSPNet (256)                | MobileNetV2    | 0.55 | 0.28                        | 14                                 | 39    |
+| PSPNET (256)                | MobileNetV3    | 0.54 | 1                           | /                                  | /     |
+
+## Conclusion
+
+
+## License
+
+This project is distributed under the MIT License. Please see the [LICENSE](LICENSE) file for more information.
+
+## Additional Resources
+
+- [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
+- [NVIDIA Jetson Nano Developer Kit](https://developer.nvidia.com/embedded/jetson-nano-developer-kit)
