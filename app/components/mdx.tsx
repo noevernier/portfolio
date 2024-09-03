@@ -3,6 +3,8 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 
 function clsx(...args: any) {
 	return args.filter(Boolean).join(" ");
@@ -65,7 +67,7 @@ const components = {
 	a: ({ className, ...props }) => (
 		<Link
 			className={clsx(
-				"font-medium text-zinc-900 underline underline-offset-4",
+				"font-medium text-zinc-100 underline underline-offset-4",
 				className,
 			)}
 			{...props}
@@ -118,7 +120,7 @@ const components = {
 	tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
 		<tr
 			className={clsx(
-				"m-0 border-t border-zinc-300 p-0 even:bg-zinc-100",
+				"m-0 border-t border-zinc-300 p-0 even:bg-zinc-800",
 				className,
 			)}
 			{...props}
@@ -154,7 +156,7 @@ const components = {
 	code: ({ className, ...props }) => (
 		<code
 			className={clsx(
-				"relative rounded border bg-zinc-300 bg-opacity-25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-zinc-600",
+				"relative rounded bg-opacity-25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-zinc-600",
 				className,
 			)}
 			{...props}

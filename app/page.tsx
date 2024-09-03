@@ -6,6 +6,7 @@ import { Card } from "./components/card";
 
 const navigation = [
     { name: "Projects", href: "/projects" },
+    { name: "Blog", href: "https://eigenflow.vercel.app" },
     { name: "Contact", href: "/contact" },
     { name: "Resume", href: "https://cv.noevernier.vercel.app" },
 ];
@@ -51,6 +52,13 @@ export default function Home() {
                         className="underline duration-100 hover:text-zinc-300"
                     >
                         Télécom Paris
+                    </Link>{" "}
+                    and <Link
+                        target="_blank"
+                        href="https://www.master-mva.com/"
+                        className="underline duration-100 hover:text-zinc-300"
+                    >
+                        Master MVA
                     </Link>{" "}
                     in France.
                 </h2>
